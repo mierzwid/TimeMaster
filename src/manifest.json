@@ -1,0 +1,31 @@
+{
+  "name": "Time Master",
+  "description": "Time Master helps you manage time on your Hangout meetings.",
+  "permissions": [
+    "https://calendar.google.com/calendar/*",
+    "https://meet.google.com/*",
+    "https://hangouts.google.com/hangouts/*",
+    "storage"
+  ],
+ "content_scripts": [
+   {
+     "matches": ["https://calendar.google.com/calendar/*"],
+     "js": ["js/calendar/timeMaster.js"]
+   },
+   {
+     "matches": ["https://meet.google.com/*"],
+     "js": ["js/hangouts/timeMaster.js"]
+   },
+   {
+      "matches": ["https://hangouts.google.com/hangouts/*"],
+      "js": ["js/hangouts/timeMaster.js"]
+   }
+  ],
+  "background": {},
+  "icons": {
+    "16": "res/time-master-16x16.png",
+    "48": "res/time-master-48x48.png",
+    "128": "res/time-master-128x128.png" },
+  "manifest_version": 2,
+  "web_accessible_resources": ["res/copy.png"]
+}

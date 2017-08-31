@@ -1,0 +1,96 @@
+/*******************************************************************************
+ * Copyright © 2017 Hoffmann-La Roche
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+
+#tm-progress-bar-right {
+
+    appearance: none; /* Get rid of the default appearance */
+    border: none;
+    border-radius: 0;
+
+    width: 100vh; /* vh maps height instead of width */
+    height: 20px;
+
+    transform-origin: right top; /* point of rotation */
+    transform: rotateZ(-90deg) translateY(-20px); /* rotate to make it horizontal, translate to move back to the screen */
+
+    position: fixed;
+    top: 0px;
+    right: 0px;
+
+    background-color: rgba(128,128,128,.25); /* for some reason it needs to be here. Otherwise the bar is rendered incorrectly */
+}
+
+#tm-progress-bar-left {
+
+    appearance: none; /* Get rid of the default appearance */
+    border: none;
+    border-radius: 0;
+
+    width: 100vh; /* vh maps height instead of width */
+    height: 20px;
+
+    transform-origin: right top; /* point of rotation */
+    transform: rotateZ(-90deg) translateY(-100vh); /* rotate to make it horizontal, translate to move to the left */
+
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    background-color: rgba(128,128,128,.25); /* for some reason it needs to be here. Otherwise the bar is rendered incorrectly */
+}
+
+.tm-message-box {
+    position: absolute;
+    max-height: 404px;
+    left: 16px;
+    top: 8px;
+    padding: 24px 24px 8px 24px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow:
+            rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+            rgba(0, 0, 0, 0.12) 0px 3px 14px 2px,
+            rgba(0, 0, 0, 0.2) 0px 5px 5px -3px;
+    box-sizing: border-box;
+    color: rgb(38, 50, 56);
+    font-family: Roboto, arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.tm-message-box div {
+    text-align: center;
+}
+
+.tm-message-box span {
+    color: #008add;
+    margin-left: 3px;
+}
+
+.progress-background::-webkit-progress-bar {
+    background-color: rgba(128,128,128,.25);
+}
+
+.progress-high::-webkit-progress-value {
+    background: #5bb546;
+}
+
+.progress-medium::-webkit-progress-value {
+    background: #ffc70f;
+}
+
+.progress-low::-webkit-progress-value {
+    background: #ce3e2e;
+}
