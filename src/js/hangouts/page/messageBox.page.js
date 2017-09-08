@@ -18,10 +18,15 @@ import log from '../../common/log.js';
 
 const messageBox = {
     MESSAGE_BOX_CLASS: 'tm-message-box',
+    MESSAGE_BOX_ID: 'tm-message-box-id',
+    RED_CLASS: 'red',
+    GREEN_CLASS: 'green',
     TM_LINK: 'https://chrome.google.com/webstore/detail/time-master/hjbpoaibdpheojjmlfogdklfkekbijjd',
     CLIPBOARD_TEXTAREA_ID: 'tm-link',
     BOX_WIDTH: 200,
+    BOX_HEIGHT: 100,
     RIGHT_MARGIN: 20,
+    remaining: 0,
     created : false,
 
     addMessageBox: function (event) {
@@ -30,26 +35,42 @@ const messageBox = {
             log.info('MessageBox added');
 
             const mBox = messageBox.createMessageBoxElement(event.clientX, event.clientY);
-            mBox.onclick = function () {
-                log.info('MessageBox removed');
-                messageBox.created = false;
-                document.body.removeChild(mBox);
-            };
+            mBox.onclick = messageBox.removeMessageBox;
+            document.body.onclick = messageBox.removeMessageBox;
 
             document.body.appendChild(mBox);
         }
     },
 
+    removeMessageBox: function() {
+        if (messageBox.created === true) {
+            log.info('MessageBox removed');
+            messageBox.created = false;
+            const mBox = document.getElementById(messageBox.MESSAGE_BOX_ID);
+            document.body.removeChild(mBox);
+            document.body.onclick -= messageBox.removeMessageBox;
+        }
+    },
+
     createMessageBoxElement: function (x, y) {
+        const heightDiff = y + messageBox.BOX_HEIGHT - document.body.scrollHeight;
+        const normalizedY = heightDiff > 0 ? y - heightDiff : y;
         const mBox = document.createElement('div');
+
+        const time = document.createElement('p');
+        time.innerHTML = messageBox.remaining + ' min';
+        time.className = messageBox.remaining > 0 ? messageBox.GREEN_CLASS : messageBox.RED_CLASS;
+
         mBox.className = messageBox.MESSAGE_BOX_CLASS;
+        mBox.id = messageBox.MESSAGE_BOX_ID;
         mBox.innerHTML = 'Like it? Share TimeMaster';
         mBox.style['width'] = messageBox.BOX_WIDTH + 'px';
-        mBox.style['top'] = y + 'px';
+        mBox.style['top'] = normalizedY + 'px';
         mBox.style['left'] = (x - messageBox.BOX_WIDTH - messageBox.RIGHT_MARGIN) + 'px';
 
         const copyDiv = messageBox.createCopyDiv();
         mBox.appendChild(copyDiv);
+        mBox.insertBefore(time, mBox.childNodes[0]);
 
         return mBox;
     },
@@ -58,7 +79,7 @@ const messageBox = {
         const copyDiv = document.createElement('div');
 
         const copySpan = document.createElement('span');
-        copySpan.innerHTML = 'COPY';
+        copySpan.innerHTML = 'COPY LINK';
         copySpan.onclick = function () {
             messageBox.copyToClipboard(messageBox.TM_LINK);
         };
@@ -92,10 +113,8 @@ const messageBox = {
     },
 
     setTime: function (elapsed, durationInMs) {
-        log.info('MessageBox, elapsed:', elapsed, 'duration:', durationInMs);
-        if (elapsed > 0) {
-            messageBox.addMessageBox();
-        }
+        var timeDiffInMs = durationInMs - elapsed;
+        messageBox.remaining = Math.floor(timeDiffInMs / 60000);
     },
 };
 

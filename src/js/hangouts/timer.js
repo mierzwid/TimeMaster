@@ -17,6 +17,7 @@
 import Stopwatch from './stopwatch';
 import timeStrip from './page/timeStrip.page.js';
 import PingHandler from './PingHandler.js';
+import messageBox from './page/messageBox.page.js';
 
 class Timer {
     constructor() {
@@ -24,6 +25,7 @@ class Timer {
         this.stopwatch = new Stopwatch();
         this.stopwatch.addHandler(timeStrip.setTime);
         this.stopwatch.addHandler(PingHandler.beforeEndOfAMeetingHandler());
+        this.stopwatch.addHandler(messageBox.setTime);
         this.stopwatch.setStopHandler(PingHandler.onEndOfAMeetingHandler());
     }
 
