@@ -72,7 +72,7 @@ const addHangoutParamsToBubbleChanges = function (mutations) {
                     .map(findParentBubble)
                     .filter(element => element) // removes nulls
                     .filter(arraysUtils.uniqueElements)
-                    .map(meetingOverview.addTimeMasterToHangoutLinks);
+                    .map(addTimeMasterToHangoutLinks);
 };
 
 
