@@ -28,18 +28,36 @@ const messageBox = {
     RIGHT_MARGIN: 20,
     remaining: 0,
     created : false,
+    timeoutId : null,
 
     addMessageBox: function (event) {
+        messageBox.clearRemoveTimeout();
         if (messageBox.created === false){
             messageBox.created = true;
             log.info('MessageBox added');
 
             const mBox = messageBox.createMessageBoxElement(event.clientX, event.clientY);
             mBox.onclick = messageBox.removeMessageBox;
+            mBox.onmouseout = messageBox.startRemoveTimeout;
+            mBox.onmouseover = messageBox.addMessageBox;
             document.body.onclick = messageBox.removeMessageBox;
 
             document.body.appendChild(mBox);
         }
+    },
+
+    startRemoveTimeout: function() {
+        if (messageBox.timeoutId === null) {
+            messageBox.timeoutId = setTimeout(function () {
+                messageBox.removeMessageBox();
+                messageBox.timeoutId = null;
+            }, 500);
+        }
+    },
+
+    clearRemoveTimeout: function () {
+        clearTimeout(messageBox.timeoutId);
+        messageBox.timeoutId = null;
     },
 
     removeMessageBox: function() {

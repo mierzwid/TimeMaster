@@ -1,6 +1,6 @@
 {
   "name": "time-master-chrome-extension",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Time Master helps you manage time on your Hangout meetings.",
   "main": "./src/manifest.json",
   "directories": {

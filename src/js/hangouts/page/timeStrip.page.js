@@ -35,6 +35,7 @@ let timeStrip = {
         let progress = document.createElement('PROGRESS');
         progress.id = timeStrip.PROGRESS_ID;
         progress.onmouseover = messageBox.addMessageBox;
+        progress.onmouseout = messageBox.startRemoveTimeout;
         document.body.appendChild(progress);
         log.info('Progress item created in body');
     },
