@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-const google_analytics_app_key = 'UA-45104334-2';
+const google_analytics_app_key = GOOGLE_ANALYTICS_ID;
 
 const googleAnalytics = {
 

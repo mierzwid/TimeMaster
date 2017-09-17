@@ -17,4 +17,4 @@ Configuration files
 * [package-lock.json] contains versions of "dependencies of dependencies". In bigger project it should help to manage problems with different versions of sub-dependencies and circular dependencies.
 * [webpack.config.js] defines how the project will be build during `npm run build`
 * [karma.conf.js] defines how tests are being run during `npm run test`
-
+* [./config/] directory with environemnt specific configurations
