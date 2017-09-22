@@ -15,6 +15,8 @@
  ******************************************************************************/
 
 import log from '../../common/log.js';
+import ga from '../googleAnalytics.js';
+import urlParser from '../../common/urlParser.js';
 
 const messageBox = {
     MESSAGE_BOX_CLASS: 'tm-message-box',
@@ -100,6 +102,7 @@ const messageBox = {
         copySpan.innerHTML = 'COPY LINK';
         copySpan.onclick = function () {
             messageBox.copyToClipboard(messageBox.TM_LINK);
+            ga.sendMainEvent(ga.action.COPY_LINK_CLICKED, messageBox.getHangoutId(), 1);
         };
 
         const copyImage = document.createElement('img');
@@ -133,6 +136,10 @@ const messageBox = {
     setTime: function (elapsed, durationInMs) {
         var timeDiffInMs = durationInMs - elapsed;
         messageBox.remaining = Math.floor(timeDiffInMs / 60000);
+    },
+
+    getHangoutId: function () {
+        return urlParser.getHangoutId(window.location.pathname);
     },
 };
 

@@ -20,7 +20,8 @@ const googleAnalytics = {
 
     action: {
         HANGOUT_STOPPED : 'hangout stopped',
-        HANGOUT_STARTED : 'hangout started'
+        HANGOUT_STARTED : 'hangout started',
+        COPY_LINK_CLICKED : 'copy link click'
     },
 
     setupGoogleAnalytics: function () {
