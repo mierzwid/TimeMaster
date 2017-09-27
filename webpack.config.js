@@ -28,7 +28,7 @@ var hangoutPath = path.join(sourcePath, 'js/hangouts/');
 var libPath = path.join(sourcePath, 'js/lib/');
 
 const configure = function(envName) {
-    let env = require(path.join(__dirname, 'config', envName || 'dev')); // use dev by default
+    var env = require(path.join(__dirname, 'config', envName || 'dev')); // use dev by default
     console.log(env);
     return {
         context: path.resolve(sourcePath),
