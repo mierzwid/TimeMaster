@@ -16,59 +16,68 @@
 
 
 var path = require('path');
+var webpack = require('webpack');
 var ChromeDevPlugin = require('chrome-dev-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var sourcePath = path.join(__dirname, 'src');
 var distPath = path.join(__dirname, 'dist');
 
-var calendarPath = path.join(sourcePath, "js/calendar/");
-var hangoutPath = path.join(sourcePath, "js/hangouts/");
-var libPath = path.join(sourcePath, "js/lib/");
+var calendarPath = path.join(sourcePath, 'js/calendar/');
+var hangoutPath = path.join(sourcePath, 'js/hangouts/');
+var libPath = path.join(sourcePath, 'js/lib/');
 
-const config = {
-    context: path.resolve(sourcePath),
-    entry: {
-        calendar: path.join(calendarPath, 'timeMaster.js'),
-        hangouts: [
-            path.join(hangoutPath, 'timeMaster.js'),
-            path.join(libPath, 'analytics.js')],
-    },
-    output: {
-        filename: '[name].js',
-        path: path.resolve(distPath)
-    },
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
-            },
-            {
-                test: /\.js$/,
-                enforce: 'pre',
-                exclude: /node_modules|lib/,
-                use: [
-                    {
-                        loader: 'eslint-loader',
-                        options: {
-                            failOnWarning: false,
-                            failOnError: true
+const configure = function(envName) {
+    var env = require(path.join(__dirname, 'config', envName || 'dev')); // use dev by default
+    console.log(env);
+    return {
+        context: path.resolve(sourcePath),
+        entry: {
+            calendar: path.join(calendarPath, 'timeMaster.js'),
+            hangouts: [
+                path.join(hangoutPath, 'timeMaster.js'),
+                path.join(libPath, 'analytics.js')],
+        },
+        output: {
+            filename: '[name].js',
+            path: path.resolve(distPath)
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.css$/,
+                    use: [ 'style-loader', 'css-loader' ]
+                },
+                {
+                    test: /\.js$/,
+                    enforce: 'pre',
+                    exclude: /node_modules|lib/,
+                    use: [
+                        {
+                            loader: 'eslint-loader',
+                            options: {
+                                failOnWarning: false,
+                                failOnError: true
+                            }
                         }
-                    }
-                ]
-            }
+                    ]
+                }
+            ]
+        },
+        plugins: [
+            new ChromeDevPlugin({
+                //Sets the logging functions
+                log:console.log,
+                warm:console.warn,
+                error:console.error,
+            }),
+            new CopyWebpackPlugin([{ from: 'res/*'}]),
+            new webpack.DefinePlugin({
+                WEBSTORE_URL: JSON.stringify(env.webstoreUrl),
+                GOOGLE_ANALYTICS_ID: JSON.stringify(env.googleAnalyticsId)
+              })
         ]
-    },
-    plugins: [
-        new ChromeDevPlugin({
-            //Sets the logging functions
-            log:console.log,
-            warm:console.warn,
-            error:console.error,
-        }),
-        new CopyWebpackPlugin([{ from: 'res/*'}])
-    ]
+    };
 };
 
-module.exports = config;
+module.exports = configure;

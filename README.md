@@ -24,6 +24,7 @@ Building and testing "unpackaged" extension
 -------------------------------------------
 - To download dependencies: `npm install` -> downloads required modules to [./node_modules]
 - To build: `npm run build` -> builds sources in [./src] into [./dist]
+- To build for production or other specified environemnt: `npm run build -- --env=prod` (or replace prod with different env name)
 - To develop: `npm run dev` -> builds sources in [./src] into [./dist] with auto rebuilding after every change
     Note: Install [Chrome Unpacked Extension Auto Reload](https://chrome.google.com/webstore/detail/chrome-unpacked-extension/fddfkmklefkhanofhlohnkemejcbamln) to enable chrome extension auto reloading
 - To test: `npm run test` -> run tests in [./test] and keep rerunning them in case of any changeg in source code

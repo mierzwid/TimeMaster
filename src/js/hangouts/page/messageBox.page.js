@@ -23,7 +23,7 @@ const messageBox = {
     MESSAGE_BOX_ID: 'tm-message-box-id',
     RED_CLASS: 'red',
     GREEN_CLASS: 'green',
-    TM_LINK: 'https://chrome.google.com/webstore/detail/time-master/hjbpoaibdpheojjmlfogdklfkekbijjd',
+    TM_LINK: WEBSTORE_URL,
     CLIPBOARD_TEXTAREA_ID: 'tm-link',
     BOX_WIDTH: 200,
     BOX_HEIGHT: 100,
