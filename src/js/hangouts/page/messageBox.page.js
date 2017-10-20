@@ -17,6 +17,9 @@
 import log from '../../common/log.js';
 import ga from '../googleAnalytics.js';
 import urlParser from '../../common/urlParser.js';
+import hangoutsPageFactory from './hangoutsPageFactory.js';
+
+const HANGOUTS_PAGE_OBJECT = hangoutsPageFactory.getHangoutsPage();
 
 const messageBox = {
     MESSAGE_BOX_CLASS: 'tm-message-box',
@@ -31,6 +34,7 @@ const messageBox = {
     remaining: 0,
     created : false,
     timeoutId : null,
+    stripOnRightSide: HANGOUTS_PAGE_OBJECT.isTimeStripOnRight(),
 
     addMessageBox: function (event) {
         messageBox.clearRemoveTimeout();
@@ -86,13 +90,21 @@ const messageBox = {
         mBox.innerHTML = 'Like it? Share TimeMaster';
         mBox.style['width'] = messageBox.BOX_WIDTH + 'px';
         mBox.style['top'] = normalizedY + 'px';
-        mBox.style['left'] = (x - messageBox.BOX_WIDTH - messageBox.RIGHT_MARGIN) + 'px';
+        mBox.style['left'] = (x + messageBox.getMessageBoxLeftOffset()) + 'px';
 
         const copyDiv = messageBox.createCopyDiv();
         mBox.appendChild(copyDiv);
         mBox.insertBefore(time, mBox.childNodes[0]);
 
         return mBox;
+    },
+
+    getMessageBoxLeftOffset() {
+        if (messageBox.stripOnRightSide) {
+            return - messageBox.BOX_WIDTH - messageBox.RIGHT_MARGIN;
+        } else {
+            return messageBox.RIGHT_MARGIN / 2;
+        }
     },
 
     createCopyDiv: function() {

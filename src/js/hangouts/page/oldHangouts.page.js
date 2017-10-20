@@ -22,7 +22,8 @@ const oldHangoutsPage = {
     isOnCompatibleHangoutsPage: () => window.location.href.startsWith(oldHangoutsPage.URL_PREFIX),
     isInitialized: () => document.querySelector(oldHangoutsPage.EMAIL_SPAN) != undefined,
     getEmail: () => document.querySelector(oldHangoutsPage.EMAIL_SPAN).innerHTML,
-    getProgressBarClass: () => oldHangoutsPage.PROGRESS_BAR_CLASS
+    getProgressBarClass: () => oldHangoutsPage.PROGRESS_BAR_CLASS,
+    isTimeStripOnRight: () => true
 };
 
 export default oldHangoutsPage;

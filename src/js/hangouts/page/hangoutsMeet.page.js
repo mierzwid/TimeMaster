@@ -22,7 +22,8 @@ const hangoutsMeetPage = {
     isOnCompatibleHangoutsPage: () => window.location.href.startsWith(hangoutsMeetPage.URL_PREFIX),
     isInitialized: () => document.querySelector(hangoutsMeetPage.EMAIL_SPAN) != undefined,
     getEmail: () => document.querySelector(hangoutsMeetPage.EMAIL_SPAN).innerHTML,
-    getProgressBarClass: () => hangoutsMeetPage.PROGRESS_BAR_CLASS
+    getProgressBarClass: () => hangoutsMeetPage.PROGRESS_BAR_CLASS,
+    isTimeStripOnRight: () => false
 };
 
 export default hangoutsMeetPage;
