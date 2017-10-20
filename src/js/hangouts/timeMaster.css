@@ -39,15 +39,15 @@
     border: none;
     border-radius: 0;
 
-    width: 100vh; /* vh maps height instead of width */
-    height: 20px;
+    width: 99vh; /* vh maps height instead of width */
+    height: 17px;
 
     transform-origin: right top; /* point of rotation */
-    transform: rotateZ(-90deg) translateY(-100vh); /* rotate to make it horizontal, translate to move to the left */
+    transform: rotateZ(-90deg) translateY(-99vh); /* rotate to make it horizontal, translate to move to the left */
 
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0.5vh;
+    left: 0.5vh;
 
     background-color: rgba(128,128,128,.25); /* for some reason it needs to be here. Otherwise the bar is rendered incorrectly */
 }
@@ -98,13 +98,13 @@
 }
 
 .progress-high::-webkit-progress-value {
-    background: #5bb546;
+    background: #129084;
 }
 
 .progress-medium::-webkit-progress-value {
-    background: #ffc70f;
+    background: #F5B401;
 }
 
 .progress-low::-webkit-progress-value {
-    background: #ce3e2e;
+    background: #FF5252;
 }
