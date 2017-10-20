@@ -24,6 +24,7 @@ const HANGOUTS_PAGE_OBJECT = hangoutsPageFactory.getHangoutsPage();
 const messageBox = {
     MESSAGE_BOX_CLASS: 'tm-message-box',
     MESSAGE_BOX_ID: 'tm-message-box-id',
+    CLICKABLE_CLASS: 'clickable',
     RED_CLASS: 'red',
     GREEN_CLASS: 'green',
     TM_LINK: WEBSTORE_URL,
@@ -112,6 +113,7 @@ const messageBox = {
 
         const copySpan = document.createElement('span');
         copySpan.innerHTML = 'COPY LINK';
+        copySpan.className = messageBox.CLICKABLE_CLASS;
         copySpan.onclick = function () {
             messageBox.copyToClipboard(messageBox.TM_LINK);
             ga.sendMainEvent(ga.action.COPY_LINK_CLICKED, messageBox.getHangoutId(), 1);

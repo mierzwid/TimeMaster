@@ -108,3 +108,7 @@
 .progress-low::-webkit-progress-value {
     background: #FF5252;
 }
+
+.clickable {
+    cursor: pointer;
+}
