@@ -44,10 +44,8 @@ const messageBox = {
             log.info('MessageBox added');
 
             const mBox = messageBox.createMessageBoxElement(event.clientX, event.clientY);
-            mBox.onclick = messageBox.removeMessageBox;
             mBox.onmouseout = messageBox.startRemoveTimeout;
             mBox.onmouseover = messageBox.addMessageBox;
-            document.body.onclick = messageBox.removeMessageBox;
 
             document.body.appendChild(mBox);
         }
@@ -84,7 +82,7 @@ const messageBox = {
 
         const time = document.createElement('p');
         time.innerHTML = messageBox.remaining + ' min';
-        time.className = messageBox.remaining > 0 ? messageBox.GREEN_CLASS : messageBox.RED_CLASS;
+        time.className = messageBox.remaining > 0 ? '' : messageBox.RED_CLASS;
 
         mBox.className = messageBox.MESSAGE_BOX_CLASS;
         mBox.id = messageBox.MESSAGE_BOX_ID;
@@ -117,6 +115,7 @@ const messageBox = {
         copySpan.onclick = function () {
             messageBox.copyToClipboard(messageBox.TM_LINK);
             ga.sendMainEvent(ga.action.COPY_LINK_CLICKED, messageBox.getHangoutId(), 1);
+            copySpan.innerHTML = 'COPIED';
         };
 
         const copyImage = document.createElement('img');
