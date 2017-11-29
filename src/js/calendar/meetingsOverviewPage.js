@@ -25,18 +25,19 @@ import log from '../common/log.js';
 const meetingOverview = {
 
     registerBubbleListener: function () {
-        let observer = new MutationObserver(addHangoutParamsToAddedNodes);
-        let observerConfig = {childList: true, subtree: false};
+        let observer = new MutationObserver(addBubbleChangeObserverToAddedNodes);
+        let observerConfig = {childList: true, subtree: true};
 
         observer.observe(document.body, observerConfig);
     },
 };
 
-const addTimeMasterToHangoutLinks = function (bubble) {
+const findMeetingTime = function (bubble) {
     if (bubble) {
-        var meetingTimeRange = findMeetingHoursInBubble(bubble);
-        var hangoutLinks = bubble.querySelectorAll(config.meetingsOverviewPage.selector.hangoutLink);
-        var meetLinks = bubble.querySelectorAll(config.meetingsOverviewPage.selector.meetLink);
+        let meetingTimeRange = findMeetingHoursInBubble(bubble);
+        let hangoutLinks = bubble.querySelectorAll(config.meetingsOverviewPage.selector.hangoutLink);
+        let meetLinks = bubble.querySelectorAll(config.meetingsOverviewPage.selector.meetLink);
+        log.info('HangoutLinks: ', hangoutLinks, ' MeetLinks: ', meetLinks, ' TimeRange: ', meetingTimeRange);
 
         arraysUtils.arrayify(hangoutLinks).concat(arraysUtils.arrayify(meetLinks)).forEach(a => saveHangoutTime(a, meetingTimeRange));
     }
@@ -44,19 +45,19 @@ const addTimeMasterToHangoutLinks = function (bubble) {
 };
 
 
-const addHangoutParamsToAddedNodes = function (mutations) {
+const addBubbleChangeObserverToAddedNodes = function (mutations) {
     return mutations.filter(mutation => mutation.addedNodes)
                     .map(mutation => arraysUtils.arrayify(mutation.addedNodes))
                     .reduce(arraysUtils.concatenateArrays, [])
                     .filter(isBubble)
-                    .map(addTimeMasterToHangoutLinks)
+                    .map(findMeetingTime)
                     .map(addBubbleChangesObserver);
 };
 
 
 const addBubbleChangesObserver = function (bubble) {
     if (bubble) {
-        let observer = new MutationObserver(addHangoutParamsToBubbleChanges);
+        let observer = new MutationObserver(findMeetingTimeInBubbleChanges);
         let observerConfig = {childList: true, subtree: true};
 
         observer.observe(bubble, observerConfig);
@@ -64,7 +65,7 @@ const addBubbleChangesObserver = function (bubble) {
     return bubble;
 };
 
-const addHangoutParamsToBubbleChanges = function (mutations) {
+const findMeetingTimeInBubbleChanges = function (mutations) {
     return mutations.filter(mutation => mutation.addedNodes)
                     .map(mutation => arraysUtils.arrayify(mutation.addedNodes))
                     .reduce(arraysUtils.concatenateArrays, [])
@@ -72,7 +73,7 @@ const addHangoutParamsToBubbleChanges = function (mutations) {
                     .map(findParentBubble)
                     .filter(element => element) // removes nulls
                     .filter(arraysUtils.uniqueElements)
-                    .map(addTimeMasterToHangoutLinks);
+                    .map(findMeetingTime);
 };
 
 
@@ -85,16 +86,18 @@ const findParentBubble = function (mutatedElement) {
 };
 
 const findMeetingHoursInBubble = function (bubble) {
-    var timeBox = findTimeBox(bubble);
+    let timeBox = findTimeBox(bubble);
     if (!timeBox) return undefined;
 
-    var timeString = timeParser.extractHourMinuteRange(timeBox.textContent);
-    var hoursTab = timeString.match(config.hourMinutePattern);
-    return timeParser.createTimeRangeFromTimeArray(hoursTab);
+    let timeString = timeParser.extractHourMinuteRange(timeBox.textContent);
+    let hoursTab = timeString.match(config.hourMinutePattern);
+    let timeRangeFromTimeArray = timeParser.createTimeRangeFromTimeArray(hoursTab);
+    log.info('TimeString: ' + timeString + ', hoursTab:' + hoursTab + ',TimeRange: ', timeRangeFromTimeArray);
+    return timeRangeFromTimeArray;
 };
 
 const findTimeBox = function (bubble) {
-    var timeBox;
+    let timeBox;
     for (let i in config.meetingsOverviewPage.selector.meetingTimeSelectors) {
         let selector = config.meetingsOverviewPage.selector.meetingTimeSelectors[i];
         timeBox = bubble.querySelector(selector);
@@ -114,6 +117,12 @@ const saveHangoutTime = function (aHrefElement, meetingTimeRange) {
     }
 };
 
-const isBubble = element => element.className.indexOf(config.meetingsOverviewPage.bubbleClassName) >= 0;
+const isBubble = function (element) {
+    let isBubble = false;
+    if (element.className) {
+        isBubble = element.className.indexOf(config.meetingsOverviewPage.bubbleClassName) >= 0;
+    }
+    return isBubble;
+};
 
 export default meetingOverview;

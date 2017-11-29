@@ -27,8 +27,11 @@ const meetingDetailsPage = {
         let observer = new MutationObserver(this.addTimeMasterParamsToButton);
         let observerConfig = {childList: true, subtree: true};
         let detailsContainer = document.getElementById(config.meetingDetailsPage.detailsModalId);
-        observer.observe(detailsContainer, observerConfig);
-        log.info('Observer for details page registered.');
+        if (detailsContainer) {
+            observer.observe(detailsContainer, observerConfig);
+            log.info('Observer for details page registered.');
+        }
+        log.warn('Details page container not found.');
     },
 
     addTimeMasterParamsToButton: function (mutations) {
@@ -44,7 +47,7 @@ const meetingDetailsPage = {
     },
 
     getMeetingTimeRange: function () {
-        var startEndTimeArray = this.getMeetingTimeRangeFromLabelAsArray();
+        let startEndTimeArray = this.getMeetingTimeRangeFromLabelAsArray();
         if (!startEndTimeArray || startEndTimeArray.length < 2) {
             log.info('Time range element don\'t found. looking for individual hours');
             startEndTimeArray = this.getMeetingTimeRangeFromIndividualFieldsAsArray();
@@ -54,11 +57,11 @@ const meetingDetailsPage = {
     },
 
     getMeetingTimeRangeFromLabelAsArray: function () {
-        var timeRangeElement = document.querySelector(config.meetingDetailsPage.labelWithTimeRange);
-        var startEndTimeArray = [];
+        let timeRangeElement = document.querySelector(config.meetingDetailsPage.labelWithTimeRange);
+        let startEndTimeArray = [];
 
         if (timeRangeElement !== null) {
-            var startEndTimeString = timeParser.extractHourMinuteRange(timeRangeElement.innerHTML);
+            let startEndTimeString = timeParser.extractHourMinuteRange(timeRangeElement.innerHTML);
             startEndTimeArray = startEndTimeString.match(config.hourMinutePattern);
             if (!startEndTimeArray || startEndTimeArray.length < 2) {
                 log.warn('Error parsing meeting time label element:', timeRangeElement.innerHTML);
@@ -69,9 +72,9 @@ const meetingDetailsPage = {
     },
 
     getMeetingTimeRangeFromIndividualFieldsAsArray: function () {
-        var startEndTimeArray = [];
-        var startHourMinuteElement = getElementValue(config.meetingDetailsPage.editWithStartTime);
-        var endHourMinuteElement = getElementValue(config.meetingDetailsPage.editWithEndTime);
+        let startEndTimeArray = [];
+        let startHourMinuteElement = getElementValue(config.meetingDetailsPage.editWithStartTime);
+        let endHourMinuteElement = getElementValue(config.meetingDetailsPage.editWithEndTime);
 
         if (startHourMinuteElement && endHourMinuteElement) {
             startEndTimeArray = [startHourMinuteElement, endHourMinuteElement];

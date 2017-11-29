@@ -14,8 +14,23 @@
  * limitations under the License.
  ******************************************************************************/
 
-import configFactory from './configFactory';
+import newConfig from './newConfig';
+import oldConfig from './oldConfig';
+import log from '../common/log.js';
 
-const config = configFactory.getConfig();
+const configFactory = {
+    getConfig: function () {
+        if (this.isNewCalendar()) {
+            log.info('Loading new calendar config.');
+            return newConfig;
+        }
+        log.info('Loading old calendar config.');
+        return oldConfig;
+    },
 
-export default config;
+    isNewCalendar: function() {
+        return document.body.getAttribute(newConfig.newCalendarBodyAttribute);
+    }
+};
+
+export default configFactory;
