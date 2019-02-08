@@ -25,7 +25,6 @@ class Timer {
         this.stopwatch = new Stopwatch();
         this.stopwatch.addHandler(timeStrip.setTime);
         this.stopwatch.addHandler(PingHandler.beforeEndOfAMeetingHandler());
-        this.stopwatch.addHandler(messageBox.setTime);
         this.stopwatch.setStopHandler(PingHandler.onEndOfAMeetingHandler());
     }
 
@@ -33,6 +32,7 @@ class Timer {
         this.stop();
         this.stopwatch.setTimer(timerConfig);
         this.stopwatch.start();
+        messageBox.setTime(timerConfig);
     }
 
     stop() {

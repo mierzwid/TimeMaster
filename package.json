@@ -1,6 +1,6 @@
 {
   "name": "time-master-chrome-extension-by-cognifide",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Time Master helps you manage time on your Hangout meetings.",
   "main": "./src/manifest.json",
   "directories": {

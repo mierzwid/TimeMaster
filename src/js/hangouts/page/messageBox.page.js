@@ -31,7 +31,6 @@ const messageBox = {
     BOX_WIDTH: 200,
     BOX_HEIGHT: 100,
     RIGHT_MARGIN: 20,
-    remaining: 0,
     created : false,
     timeoutId : null,
     stripOnRightSide: HANGOUTS_PAGE_OBJECT.isTimeStripOnRight(),
@@ -48,6 +47,11 @@ const messageBox = {
 
             document.body.appendChild(mBox);
         }
+    },
+
+    remaining: function(){
+      let timeDiffInMs = this.timeConfig.endTime - Date.now();
+      return Math.floor(timeDiffInMs / 1000 / 60);
     },
 
     startRemoveTimeout: function() {
@@ -80,8 +84,8 @@ const messageBox = {
         const mBox = document.createElement('div');
 
         const time = document.createElement('p');
-        time.innerHTML = messageBox.remaining + ' min';
-        time.className = messageBox.remaining > 0 ? '' : messageBox.RED_CLASS;
+        time.innerHTML = messageBox.remaining() + ' min';
+        time.className = messageBox.remaining() > 0 ? '' : messageBox.RED_CLASS;
 
         mBox.className = messageBox.MESSAGE_BOX_CLASS;
         mBox.id = messageBox.MESSAGE_BOX_ID;
@@ -144,9 +148,8 @@ const messageBox = {
         document.body.removeChild(textArea);
     },
 
-    setTime: function (elapsed, durationInMs) {
-        var timeDiffInMs = durationInMs - elapsed;
-        messageBox.remaining = Math.floor(timeDiffInMs / 60000);
+    setTime: function (timeConfig) {
+        this.timeConfig = timeConfig;
     },
 
     getHangoutId: function () {
