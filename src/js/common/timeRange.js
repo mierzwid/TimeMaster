@@ -22,7 +22,7 @@ class TimeRange {
       this.startTime = new Date(json.startTime);
       this.endTime = new Date(json.endTime);
       if (this.startTime > this.endTime) {
-        throw Error("Start time cannot be later than end time!");
+        throw Error('Start time cannot be later than end time!');
       }
     }
 

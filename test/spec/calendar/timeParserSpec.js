@@ -149,12 +149,25 @@ describe("TimeMaster Date and Time", function () {
         expect(endTime).toEqual("14:20");
     });
 
-    it("should createTimeRangeFromTimeArray without am/pm", function () {
-        const startTime = timeParser.convertTo24h("1:20");
-        const endTime = timeParser.convertTo24h("22:00");
+    it("should createTimeRangeFromTimeArray without am", function () {
+        const range = timeParser.createTimeRangeFromTimeArray(["1:20", "2:00am"]);
 
-        expect(startTime).toEqual("01:20");
-        expect(endTime).toEqual("22:00");
+        expect(range.startTime.getHours()).toEqual(1);
+        expect(range.endTime.getHours()).toEqual(2);
+    });
+
+    it("should createTimeRangeFromTimeArray without pm", function () {
+        const range = timeParser.createTimeRangeFromTimeArray(["1:20", "2:00pm"]);
+
+        expect(range.startTime.getHours()).toEqual(13);
+        expect(range.endTime.getHours()).toEqual(14);
+    });
+
+    it("should createTimeRangeFromTimeArray without am/pm", function () {
+      const range = timeParser.createTimeRangeFromTimeArray(["1:20", "22:00"]);
+
+        expect(range.startTime.getHours()).toEqual(1);
+        expect(range.endTime.getHours()).toEqual(22);
     });
 
     it("should createTimeRangeFromTimeArray throw error when first element is greater than second", function () {
