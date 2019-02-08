@@ -4,7 +4,7 @@ Packaging
 Project Structure
 -----------------
 * [src] - all the source code and resources.
-* [dist] - exacutable extension files. Can be run as unpacked extension or packed into .zip and deployed
+* [dist] - executable extension files. Can be run as unpacked extension or packed into .zip and deployed
 * [node_modules] - all third party js dependencies. Not saved to git. Restored based on [package.json] and [package-lock.json]
 * [test] - source code of all tests
 
@@ -17,4 +17,4 @@ Configuration files
 * [package-lock.json] contains versions of "dependencies of dependencies". In bigger project it should help to manage problems with different versions of sub-dependencies and circular dependencies.
 * [webpack.config.js] defines how the project will be build during `npm run build`
 * [karma.conf.js] defines how tests are being run during `npm run test`
-* [./config/] directory with environemnt specific configurations
+* [./config/] directory with environment specific configurations
