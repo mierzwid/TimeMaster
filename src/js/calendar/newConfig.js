@@ -48,7 +48,7 @@ const newConfig = {
             hangoutLink: "a[href^='https://plus.google.com/hangouts']",
             meetLink: "a[href^='https://meet.google.com']",
             //div with meeting time
-            meetingTimeSelectors: [".DN1TJ span"],
+            meetingTimeSelectors: [".DN1TJ span:nth-child(2)"],
         },
 
         //class name of div representing bubble

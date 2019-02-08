@@ -25,7 +25,6 @@ var distPath = path.join(__dirname, 'dist');
 
 var calendarPath = path.join(sourcePath, 'js/calendar/');
 var hangoutPath = path.join(sourcePath, 'js/hangouts/');
-var libPath = path.join(sourcePath, 'js/lib/');
 
 const configure = function(envName) {
     var env = require(path.join(__dirname, 'config', envName || 'dev')); // use dev by default
@@ -34,9 +33,7 @@ const configure = function(envName) {
         context: path.resolve(sourcePath),
         entry: {
             calendar: path.join(calendarPath, 'timeMaster.js'),
-            hangouts: [
-                path.join(hangoutPath, 'timeMaster.js'),
-                path.join(libPath, 'analytics.js')],
+            hangouts: [path.join(hangoutPath, 'timeMaster.js')]
         },
         output: {
             filename: '[name].js',
@@ -73,8 +70,7 @@ const configure = function(envName) {
             }),
             new CopyWebpackPlugin([{ from: 'res/*'}]),
             new webpack.DefinePlugin({
-                WEBSTORE_URL: JSON.stringify(env.webstoreUrl),
-                GOOGLE_ANALYTICS_ID: JSON.stringify(env.googleAnalyticsId)
+                WEBSTORE_URL: JSON.stringify(env.webstoreUrl)
               })
         ]
     };

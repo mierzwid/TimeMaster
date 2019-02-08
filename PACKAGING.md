@@ -3,7 +3,7 @@ Packaging
 
 Project Structure
 -----------------
-* [src] - all the source code and resources. May also contain non-modulable libraries like Google Analytics.
+* [src] - all the source code and resources.
 * [dist] - exacutable extension files. Can be run as unpacked extension or packed into .zip and deployed
 * [node_modules] - all third party js dependencies. Not saved to git. Restored based on [package.json] and [package-lock.json]
 * [test] - source code of all tests

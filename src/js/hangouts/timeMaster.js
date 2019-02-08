@@ -18,4 +18,3 @@ import hangoutsTimer from './hangoutsTimer.js';
 import './timeMaster.css';
 
 hangoutsTimer.start();
-hangoutsTimer.addOnCloseListener();

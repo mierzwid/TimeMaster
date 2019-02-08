@@ -15,7 +15,6 @@
  ******************************************************************************/
 
 import log from '../../common/log.js';
-import ga from '../googleAnalytics.js';
 import urlParser from '../../common/urlParser.js';
 import hangoutsPageFactory from './hangoutsPageFactory.js';
 
@@ -114,7 +113,6 @@ const messageBox = {
         copySpan.className = messageBox.CLICKABLE_CLASS;
         copySpan.onclick = function () {
             messageBox.copyToClipboard(messageBox.TM_LINK);
-            ga.sendMainEvent(ga.action.COPY_LINK_CLICKED, messageBox.getHangoutId(), 1);
             copySpan.innerHTML = 'COPIED';
         };
 
