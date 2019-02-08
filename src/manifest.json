@@ -1,5 +1,5 @@
 {
-  "name": "Time Master",
+  "name": "Time Master by Cognifide",
   "description": "Time Master helps you manage time on your Hangout meetings.",
   "permissions": [
     "https://calendar.google.com/calendar/*",

@@ -1,4 +1,4 @@
-import repository from "../../../src/js/common/storage.js"
+import repository from "../../../src/js/common/timeRangeRepository.js"
 
 describe("Repository", function () {
 

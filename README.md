@@ -6,7 +6,7 @@ TimeMaster is a Chrome extension, which helps you finish your Hangouts meetings 
 It integrates with Google Hangout and Google Calendar.
 Based on time scheduled in your calendar, it shows you a progress bar with time left till the end of the meeting in hangouts window.
 
-Environement setup
+Environment setup
 ------------------
 #### IntelliJ Idea settings
 File/Settings/Languages and Frameworks/Javascript:
@@ -20,7 +20,7 @@ node.js v8.1.4 or higher is required.
 - Mac OS: You can install it using [Homebrew](https://brew.sh/) by `brew install node`
 - Windows: you can use [windows installer](https://nodejs.org/en/download/)
 
-Building and testing "unpackaged" extension
+Building and testing "un-packaged" extension
 -------------------------------------------
 - To download dependencies: `npm install` -> downloads required modules to [./node_modules]
 - To build: `npm run build` -> builds sources in [./src] into [./dist]
@@ -38,7 +38,7 @@ How to test the extension in Chrome development mode
 * Check "Developer mode"
 * "Load unpacked extension ..." and select [./dist] folder
 
-InteliJ IDEA Formatter setup
+IntelliJ IDEA Formatter setup
 ----------------------------------------------------------
 Editor -> Code Style -> JavaScript
     Tabs and Intents ->

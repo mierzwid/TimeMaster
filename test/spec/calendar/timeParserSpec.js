@@ -157,7 +157,7 @@ describe("TimeMaster Date and Time", function () {
         expect(endTime).toEqual("22:00");
     });
 
-    xit("should createTimeRangeFromTimeArray throw error when first element is greater than second", function () {
+    it("should createTimeRangeFromTimeArray throw error when first element is greater than second", function () {
         expect(function () {
             timeParser.createTimeRangeFromTimeArray(["23:20", "22:00"]);
         })

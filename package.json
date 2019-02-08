@@ -1,6 +1,6 @@
 {
-  "name": "time-master-chrome-extension",
-  "version": "2.3.0",
+  "name": "time-master-chrome-extension-by-cognifide",
+  "version": "0.0.1",
   "description": "Time Master helps you manage time on your Hangout meetings.",
   "main": "./src/manifest.json",
   "directories": {
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Roche/TimeMaster.git"
+    "url": "https://github.com/mierzwid/TimeMaster.git"
   },
   "author": "Tomasz Marciniak, Daniel Pytel, Damian Mierzwiński, Mateusz Błaż, Justyna Budek, Karol Kraśkiewicz",
   "license": "Apache-2.0"

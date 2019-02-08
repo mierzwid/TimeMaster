@@ -19,8 +19,11 @@ const MILIS_IN_SECOND = 1000;
 
 class TimeRange {
     constructor(json) {
-        this.startTime = new Date(json.startTime);
-        this.endTime = new Date(json.endTime);
+      this.startTime = new Date(json.startTime);
+      this.endTime = new Date(json.endTime);
+      if (this.startTime > this.endTime) {
+        throw Error("Start time cannot be later than end time!");
+      }
     }
 
     get durationInMinutes() {
