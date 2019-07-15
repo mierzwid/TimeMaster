@@ -17,7 +17,7 @@
 const urlParser = {
     // /hangouts/_/roche.com/tomasz-marci-d6?authuser=0
     getHangoutId: urlPathName => urlPathName.split('/')
-                                            .filter(e => ['', 'hangouts', '_'].indexOf(e) === -1)
+                                            .filter(e => ['', 'hangouts', '_', '_meet'].indexOf(e) === -1)
                                             .join('/')
                                             .split('?')[0]
 };

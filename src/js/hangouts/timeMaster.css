@@ -36,6 +36,8 @@
 #tm-progress-bar-left {
 
     appearance: none; /* Get rid of the default appearance */
+    z-index: 1; /* appear over hangouts application */
+
     border: none;
     border-radius: 0;
 
@@ -55,6 +57,7 @@
 .tm-message-box {
     position: absolute;
     text-align: center;
+    z-index: 2;
     max-height: 404px;
     left: 16px;
     top: 8px;
