@@ -19,4 +19,10 @@ describe("URL Parser", function () {
             .not
             .toContain("?");
     });
+
+    it("should exclude _meet from pathname", function () {
+        expect(urlParser.getHangoutId("/_meet/sasad-sadasd-dssd"))
+            .not
+            .toContain("_meet/");
+    });
 });
